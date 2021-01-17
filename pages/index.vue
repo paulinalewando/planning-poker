@@ -22,8 +22,9 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              documentation </a
-            >.
+              documentation
+            </a>
+            .
           </p>
           <p>
             If you have questions, please join the official
@@ -33,8 +34,9 @@
               rel="noopener noreferrer"
               title="chat"
             >
-              discord </a
-            >.
+              discord
+            </a>
+            .
           </p>
           <p>
             Find a bug? Report it on the github
@@ -44,8 +46,9 @@
               rel="noopener noreferrer"
               title="contribute"
             >
-              issue board </a
-            >.
+              issue board
+            </a>
+            .
           </p>
           <p>
             Thank you for developing with Vuetify and I look forward to bringing
@@ -87,7 +90,7 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue'
 export default {
   components: {
     Logo,
-    VuetifyLogo,
-  },
+    VuetifyLogo
+  }
 }
 </script>

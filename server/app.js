@@ -4,7 +4,7 @@ const server = http.createServer(app)
 const io = require('socket.io')(server)
 
 const usersDB = require('../utils/user')()
-const Message = require('../models/message')()
+const Message = require('../models/Message')()
 
 io.on('connection', socket => {
   socket.on('createUser', user => {

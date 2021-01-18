@@ -64,7 +64,7 @@ module.exports = {
         customProperties: true
       },
       themes: {
-        light: {
+        dark: {
           primary: '#932d53',
           secondary: '#6F6F6E',
           accent: '#F3F4F3',

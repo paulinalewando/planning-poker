@@ -1,3 +1,4 @@
+// eslint-disable-next-line nuxt/no-cjs-in-config
 module.exports = {
   mode: 'universal',
   /*
@@ -20,7 +21,7 @@ module.exports = {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#932d53' },
   /*
    ** Global CSS
    */
@@ -32,6 +33,8 @@ module.exports = {
     { src: '~/plugins/socket.client.js' },
     { src: '~/plugins/vuetify.js' }
   ],
+  // Auto import components (https://go.nuxtjs.dev/config-components)
+  components: true,
   /*
    ** Nuxt.js dev-modules
    */
@@ -41,11 +44,39 @@ module.exports = {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify'
   ],
+  // Modules (https://go.nuxtjs.dev/config-modules)
+  modules: [
+    // https://go.nuxtjs.dev/axios
+    '@nuxtjs/axios',
+    // https://go.nuxtjs.dev/pwa
+    '@nuxtjs/pwa'
+  ],
   /*
-   ** Nuxt.js modules
+   ** vuetify module configuration
+   ** https://github.com/nuxt-community/vuetify-module
    */
-  modules: ['@nuxtjs/pwa'],
-
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
+    theme: {
+      dark: true,
+      options: {
+        customProperties: true
+      },
+      themes: {
+        light: {
+          primary: '#932d53',
+          secondary: '#6F6F6E',
+          accent: '#F3F4F3',
+          error: '#F20E38',
+          info: '#055B97',
+          success: '#AFC90C',
+          warning: '#FF6501'
+        }
+      }
+    },
+    defaultAssets: { icons: 'fa' }
+  },
   pwa: {
     manifest: {
       name: 'Planning poker',
@@ -70,5 +101,6 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-  }
+  },
+  telemetry: false
 }

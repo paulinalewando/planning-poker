@@ -1,8 +1,8 @@
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const config = require('../nuxt.config.js')
 const { app, server } = require('./app')
 
-const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
 
 async function start() {

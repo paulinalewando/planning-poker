@@ -16,7 +16,14 @@ module.exports = {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -59,12 +66,12 @@ module.exports = {
     customVariables: ['~/assets/variables.scss'],
     treeShake: true,
     theme: {
-      dark: true,
+      dark: false,
       options: {
         customProperties: true
       },
       themes: {
-        dark: {
+        light: {
           primary: '#932d53',
           secondary: '#6F6F6E',
           accent: '#F3F4F3',
@@ -89,6 +96,11 @@ module.exports = {
       iconSrc: './static/favicon.ico'
     }
   },
+
+  router: {
+    middleware: 'auth'
+  },
+
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

@@ -1,12 +1,12 @@
 <template>
-  <img class="VuetifyLogo" alt="Vuetify Logo" src="/vuetify-logo.svg" />
+  <img class="app-logo" alt="Planning poker" src="/app-logo.svg" />
 </template>
 
 <style>
-.VuetifyLogo {
+.app-logo {
   height: 180px;
   width: 180px;
-  transform: rotateY(560deg);
+  transform: rotateY(340deg);
   animation: turn 3.5s ease-out forwards 1s;
 }
 

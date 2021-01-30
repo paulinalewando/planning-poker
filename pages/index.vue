@@ -79,3 +79,11 @@
     </v-col>
   </v-row>
 </template>
+
+<script>
+export default {
+  created() {
+    this.$socket.emit('getAllOnline', '123213')
+  }
+}
+</script>

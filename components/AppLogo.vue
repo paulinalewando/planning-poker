@@ -4,8 +4,8 @@
 
 <style>
 .app-logo {
-  height: 180px;
-  width: 180px;
+  height: 100px;
+  width: 100px;
   transform: rotateY(340deg);
   animation: turn 3.5s ease-out forwards 1s;
 }

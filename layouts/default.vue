@@ -31,9 +31,9 @@ export default {
   methods: {
     ...mapActions(['leftRoom']),
     logOut() {
-      this.leftRoom()
+      // this.leftRoom()
       window.localStorage.clear()
-      // this.$router.push('/login')
+      this.$router.push('/login')
     }
   }
 }

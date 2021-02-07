@@ -70,8 +70,9 @@ export default {
         ...user
       })
       this.$router.push('/')
+    } else {
+      this.loading = false
     }
-    this.loading = false
   },
   methods: {
     ...mapActions(['createUser']),

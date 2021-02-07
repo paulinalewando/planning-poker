@@ -1,5 +1,6 @@
 <template>
-  <v-row justify="center" align="center">
+  <Progress v-if="loading" />
+  <v-row v-else justify="center" align="center">
     <v-col cols="10" sm="6" md="4">
       <div class="text-center">
         <app-logo />
@@ -41,12 +42,14 @@
 <script>
 import { mapActions } from 'vuex'
 import AppLogo from '~/components/AppLogo.vue'
+import Progress from '~/components/Shared/Progress.vue'
 
 export default {
   name: 'Login',
   layout: 'login',
   components: {
-    AppLogo
+    AppLogo,
+    Progress
   },
   data() {
     return {
@@ -56,8 +59,19 @@ export default {
         room: ''
       },
       nameRules: [v => !!v || 'Name is required'],
-      roomRules: [v => !!v || 'Enter the room']
+      roomRules: [v => !!v || 'Enter the room'],
+      loading: true
     }
+  },
+  async beforeMount() {
+    const user = JSON.parse(window.localStorage.getItem('vuex'))?.user || {}
+    if (Object.keys(user).length) {
+      await this.$store.dispatch('createUser', {
+        ...user
+      })
+      this.$router.push('/')
+    }
+    this.loading = false
   },
   methods: {
     ...mapActions(['createUser']),

@@ -83,7 +83,7 @@
 <script>
 export default {
   created() {
-    this.$socket.emit('getAllOnline', '123213')
+    // this.$socket.emit('getAllOnline', '123213')
   }
 }
 </script>

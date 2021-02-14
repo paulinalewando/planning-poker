@@ -98,9 +98,9 @@ module.exports = {
     }
   },
 
-  router: {
-    middleware: 'auth'
-  },
+  // router: {
+  //   middleware: 'auth'
+  // },
 
   /*
    ** vuetify module configuration

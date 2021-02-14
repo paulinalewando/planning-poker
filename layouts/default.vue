@@ -20,6 +20,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
+  middleware: 'auth',
   data() {
     return {
       title: 'Planning poker'

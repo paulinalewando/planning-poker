@@ -33,7 +33,7 @@ export default {
     logOut() {
       // this.leftRoom()
       window.localStorage.clear()
-      this.$router.push('/login')
+      this.$router.push('/login').catch(() => {})
     }
   }
 }

@@ -69,7 +69,7 @@ export default {
       await this.$store.dispatch('createUser', {
         ...user
       })
-      this.$router.push('/')
+      this.$router.push('/').catch(() => {})
     } else {
       this.loading = false
     }
@@ -79,7 +79,7 @@ export default {
     async submit() {
       if (this.$refs.form.validate()) {
         await this.createUser(this.user)
-        this.$router.push('/')
+        this.$router.push('/').catch(() => {})
       }
     }
   }

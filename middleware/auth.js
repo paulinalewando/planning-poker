@@ -1,5 +1,5 @@
-export default function ({ store, redirect }) {
+export default function ({ store, router }) {
   if (!Object.keys(store.state.user).length) {
-    redirect('/login')
+    router.push('/login').catch(() => {})
   }
 }

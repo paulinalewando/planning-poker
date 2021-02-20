@@ -81,9 +81,22 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
+  computed: {
+    ...mapState(['user', 'users'])
+  },
+  middleware: 'auth',
   created() {
-    // this.$socket.emit('getAllOnline', '123213')
+    this.joinRoom(this.user)
+  },
+  methods: {
+    ...mapActions(['joinRoom', 'leftRoom']),
+    exit() {
+      this.leftRoom()
+      this.$router.push('/login')
+    }
   }
 }
 </script>

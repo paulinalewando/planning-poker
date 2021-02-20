@@ -1,11 +1,12 @@
 <template>
-  <Progress v-if="loading" />
-  <v-row v-else justify="center" align="center">
-    <v-col cols="10" sm="6" md="4">
-      <div class="text-center">
+  <v-row justify="center" align="center">
+    <v-col cols="10" sm="6" md="4" class="text-center">
+      <Progress v-show="loading" />
+      <div v-show="!loading" class="text-center">
         <app-logo />
       </div>
       <v-form
+        v-show="!loading"
         ref="form"
         v-model="isValid"
         lazy-validation
@@ -69,7 +70,7 @@ export default {
       await this.$store.dispatch('createUser', {
         ...user
       })
-      this.$router.push('/').catch(() => {})
+      this.$router.push('/')?.catch(() => {})
     } else {
       this.loading = false
     }
@@ -79,7 +80,7 @@ export default {
     async submit() {
       if (this.$refs.form.validate()) {
         await this.createUser(this.user)
-        this.$router.push('/').catch(() => {})
+        this.$router.push('/')?.catch(() => {})
       }
     }
   }

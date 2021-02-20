@@ -7,11 +7,11 @@ const usersDB = require('../utils/user')()
 const Message = require('../models/Message')()
 
 io.on('connection', socket => {
-  socket.on('getAllOnline', function (token) {
-    // console.log(`A user connected with socket id ${socket.id} ${token}`)
-  })
-
   socket.on('createUser', user => {
+    if (!io.sockets.adapter.rooms[user.room]) {
+      user.admin = true
+    }
+
     usersDB.addUser({
       ...user,
       id: socket.id

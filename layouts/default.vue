@@ -3,7 +3,9 @@
     <v-app-bar fixed app dark color="primary">
       <v-toolbar-title class="logo text-h5" v-text="title" />
       <v-spacer />
-      <span>Hi {{ user.name }}!</span>
+      <v-icon v-if="user.admin" x-small tooltip="Admin">fa-user-shield</v-icon>
+      <v-icon v-else x-small>fa-user</v-icon>
+      <span class="ml-2">Hi {{ user.name }}!</span>
       <v-btn icon @click.prevent="logOut">
         <v-icon tooltip="Logout">fa-sign-out-alt</v-icon>
       </v-btn>
@@ -32,9 +34,9 @@ export default {
   methods: {
     ...mapActions(['leftRoom']),
     logOut() {
-      // this.leftRoom()
+      this.leftRoom()
       window.localStorage.clear()
-      this.$router.push('/login').catch(() => {})
+      this.$router.push('/login')?.catch(() => {})
     }
   }
 }

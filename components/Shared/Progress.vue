@@ -1,16 +1,12 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col class="text-center">
-      <v-progress-circular
-        size="56"
-        color="primary"
-        indeterminate
-        width="6"
-        v-bind="$attrs"
-        v-on="$listeners"
-      ></v-progress-circular>
-    </v-col>
-  </v-row>
+  <v-progress-circular
+    size="56"
+    color="primary"
+    indeterminate
+    width="6"
+    v-bind="$attrs"
+    v-on="$listeners"
+  ></v-progress-circular>
 </template>
 
 <script>

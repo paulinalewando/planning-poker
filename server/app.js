@@ -5,13 +5,10 @@ const io = require('socket.io')(server)
 
 const usersDB = require('../utils/user')()
 const Message = require('../models/Message')()
+// const User = require('../models/User')()
 
 io.on('connection', socket => {
   socket.on('createUser', user => {
-    if (!io.sockets.adapter.rooms[user.room]) {
-      user.admin = true
-    }
-
     usersDB.addUser({
       ...user,
       id: socket.id
@@ -22,7 +19,12 @@ io.on('connection', socket => {
 
   socket.on('joinRoom', ({ name, room }) => {
     socket.join(room)
-    io.to(room).emit('updateUsers', usersDB.getUsersByRoom(room))
+    const usersInRoom = usersDB.getUsersByRoom(room)
+    if (usersInRoom.length === 1) {
+      const userOwner = usersDB.setRoomOwner(usersInRoom[0].id)
+      io.to(userOwner.id).emit('updateUser', userOwner)
+    }
+    io.to(room).emit('updateUsers', usersInRoom)
     socket.emit('newMessage', new Message('admin', `Hello, ${name}`))
     socket.broadcast
       .to(room)

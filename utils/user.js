@@ -23,6 +23,12 @@ class UsersDB {
     const index = this.users.findIndex(user => user.id === id)
     this.users[index].typingStatus = typingStatus
   }
+
+  setRoomOwner(id) {
+    const index = this.users.findIndex(user => user.id === id)
+    this.users[index].admin = true
+    return this.users[index]
+  }
 }
 
 module.exports = () => {

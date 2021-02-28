@@ -20,6 +20,9 @@ export const mutations = {
   SOCKET_updateUsers(state, users) {
     state.users = users
   },
+  SOCKET_updateUser(state, user) {
+    state.user = user
+  },
   clearData(state) {
     state.user = {}
     state.messages = []

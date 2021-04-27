@@ -1,5 +1,8 @@
 # planning-poker
 
+## Demo 
+https://aqueous-peak-46037.herokuapp.com/
+
 ## Build Setup
 
 ```bash

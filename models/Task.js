@@ -1,6 +1,5 @@
-class Message {
-  constructor(name, text, id) {
-    this.name = name
+class Task {
+  constructor(text, id) {
     this.text = text
     this.id = id
     this.time = new Date().toString().slice(15, 24)
@@ -8,5 +7,5 @@ class Message {
 }
 
 module.exports = () => {
-  return Message
+  return Task
 }

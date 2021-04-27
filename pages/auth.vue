@@ -46,7 +46,7 @@ import AppLogo from '~/components/AppLogo.vue'
 import Progress from '~/components/Shared/Progress.vue'
 
 export default {
-  name: 'Login',
+  name: 'Auth',
   layout: 'login',
   components: {
     AppLogo,

@@ -1,9 +1,11 @@
 class User {
-  constructor(name, room, id, admin) {
+  constructor(name, room, id) {
     this.name = name
     this.room = room
     this.id = id
-    this.admin = admin
+    this.admin = false
+    this.vote = null
+    this.active = true
   }
 }
 

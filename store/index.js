@@ -1,12 +1,11 @@
 export const state = () => ({
   user: {},
-  messages: [],
+  task: '',
   users: []
 })
 
 export const getters = {
-  typingUsers: ({ users, user }) =>
-    users.filter(({ typingStatus, id }) => typingStatus && user.id !== id),
+  vouters: ({ users }) => users.filter(({ admin }) => !admin),
   typingStatus: ({ user }) => user.typingStatus
 }
 
@@ -14,8 +13,11 @@ export const mutations = {
   setUser(state, user) {
     state.user = user
   },
-  SOCKET_newMessage(state, msg) {
-    state.messages = [...state.messages, msg]
+  SOCKET_newTask(state, msg) {
+    state.task = msg
+  },
+  SOCKET_clearTask(state, msg) {
+    state.task = msg
   },
   SOCKET_updateUsers(state, users) {
     state.users = users
@@ -25,7 +27,7 @@ export const mutations = {
   },
   clearData(state) {
     state.user = {}
-    state.messages = []
+    state.task = ''
     state.users = []
   },
   setTypingStatus(state, status) {
@@ -37,7 +39,7 @@ export const actions = {
   socketEmit(_, { action, payload }) {
     return this._vm.$socket.emit(action, payload)
   },
-  createMessage({ dispatch, state }, msg) {
+  createTask({ dispatch, state }, msg) {
     const { user } = state
     const payload = {
       msg,
@@ -45,7 +47,18 @@ export const actions = {
     }
 
     dispatch('socketEmit', {
-      action: 'createMessage',
+      action: 'createTask',
+      payload
+    })
+  },
+  resetTask({ dispatch, state }) {
+    const { user } = state
+    const payload = {
+      id: user.id
+    }
+
+    dispatch('socketEmit', {
+      action: 'resetTask',
       payload
     })
   },

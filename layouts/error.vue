@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  name: 'Error',
   layout: 'empty',
   props: {
     error: {

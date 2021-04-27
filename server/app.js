@@ -4,8 +4,7 @@ const server = http.createServer(app)
 const io = require('socket.io')(server)
 
 const usersDB = require('../utils/user')()
-const Message = require('../models/Message')()
-// const User = require('../models/User')()
+const Task = require('../models/Task')()
 
 io.on('connection', socket => {
   socket.on('createUser', user => {
@@ -22,22 +21,22 @@ io.on('connection', socket => {
     const usersInRoom = usersDB.getUsersByRoom(room)
     if (usersInRoom.length === 1) {
       const userOwner = usersDB.setRoomOwner(usersInRoom[0].id)
-      io.to(userOwner.id).emit('updateUser', userOwner)
+      if (userOwner) io.to(userOwner.id).emit('updateUser', userOwner)
     }
     io.to(room).emit('updateUsers', usersInRoom)
-    socket.emit('newMessage', new Message('admin', `Hello, ${name}`))
-    socket.broadcast
-      .to(room)
-      .emit(
-        'newMessage',
-        new Message('admin', `User ${name} connected to chat`)
-      )
   })
 
-  socket.on('createMessage', ({ id, msg }) => {
+  socket.on('createTask', ({ id, msg }) => {
     const user = usersDB.getUser(id)
     if (user) {
-      io.to(user.room).emit('newMessage', new Message(user.name, msg, id))
+      io.to(user.room).emit('newTask', new Task(msg, id))
+    }
+  })
+
+  socket.on('resetTask', ({ id, msg }) => {
+    const user = usersDB.getUser(id)
+    if (user) {
+      io.to(user.room).emit('clearTask')
     }
   })
 
@@ -53,14 +52,10 @@ io.on('connection', socket => {
       const id = socket.id
       const user = usersDB.getUser(id)
       if (!user) return
-      const { room, name } = user
+      const { room } = user
       usersDB.removeUser(id)
       socket.leave(room)
       io.to(room).emit('updateUsers', usersDB.getUsersByRoom(room))
-      io.to(room).emit(
-        'newMessage',
-        new Message('admin', `User ${name} left chat`)
-      )
     })
   })
 })

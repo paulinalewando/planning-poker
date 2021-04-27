@@ -1,10 +1,11 @@
+const User = require('../models/User')()
 class UsersDB {
   constructor() {
     this.users = []
   }
 
   addUser(user) {
-    this.users = [...this.users, user]
+    this.users = [...this.users, new User(user.name, user.room, user.id)]
   }
 
   getUser(id) {
@@ -25,6 +26,7 @@ class UsersDB {
   }
 
   setRoomOwner(id) {
+    if (this.users.some(user => user.admin)) return null
     const index = this.users.findIndex(user => user.id === id)
     this.users[index].admin = true
     return this.users[index]

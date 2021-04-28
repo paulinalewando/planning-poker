@@ -1,12 +1,12 @@
 export const state = () => ({
   user: {},
-  task: '',
+  task: {},
   users: []
 })
 
 export const getters = {
   vouters: ({ users }) => users.filter(({ admin }) => !admin),
-  typingStatus: ({ user }) => user.typingStatus
+  admin: ({ users }) => users.find(({ admin }) => admin)
 }
 
 export const mutations = {
@@ -16,8 +16,8 @@ export const mutations = {
   SOCKET_newTask(state, msg) {
     state.task = msg
   },
-  SOCKET_clearTask(state, msg) {
-    state.task = msg
+  SOCKET_clearTask(state) {
+    state.task = {}
   },
   SOCKET_updateUsers(state, users) {
     state.users = users
@@ -27,11 +27,11 @@ export const mutations = {
   },
   clearData(state) {
     state.user = {}
-    state.task = ''
+    state.task = {}
     state.users = []
   },
-  setTypingStatus(state, status) {
-    state.user.typingStatus = status
+  setActiveStatus(state, active) {
+    state.user.active = active
   }
 }
 
@@ -78,11 +78,11 @@ export const actions = {
 
     commit('clearData')
   },
-  setTypingStatus({ dispatch, commit, state }, typingStatus) {
-    commit('setTypingStatus', typingStatus)
+  setActiveStatus({ dispatch, commit, state }, active) {
+    commit('setActiveStatus', active)
     const { user } = state
     dispatch('socketEmit', {
-      action: 'setTypingStatus',
+      action: 'setActiveStatus',
       payload: user
     })
   },
@@ -92,7 +92,7 @@ export const actions = {
       payload: user
     })
 
-    commit('setUser', { id, ...user })
+    commit('setUser', { id, active: true, ...user })
   },
   SOCKET_reconnect({ state, dispatch }) {
     const { user } = state

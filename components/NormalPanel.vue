@@ -7,12 +7,13 @@
       <v-item-group @change="select">
         <v-row>
           <v-col v-for="n in options" :key="n" cols="12" md="3">
-            <v-item v-slot="{ active, toggle }">
+            <v-item v-slot="{ toggle }">
               <v-card
-                :color="active ? 'primary' : 'grey'"
+                :color="selected === n ? 'primary' : 'grey'"
                 class="d-flex align-center"
                 dark
-                height="125"
+                height="150"
+                :disabled="!task.id"
                 @click="toggle"
               >
                 <div class="display-1 flex-grow-1 text-center">
@@ -35,15 +36,20 @@ export default {
   data() {
     return {
       options: [0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 32, 100],
-      selected: 0
+      selected: null
     }
   },
   computed: {
     ...mapState(['task'])
   },
+  watch: {
+    'task.text'() {
+      this.selected = null
+    }
+  },
   methods: {
-    select(e) {
-      this.selected = e
+    select(i) {
+      this.selected = this.options[i]
     }
   }
 }

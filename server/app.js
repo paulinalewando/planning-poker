@@ -33,15 +33,15 @@ io.on('connection', socket => {
     }
   })
 
-  socket.on('resetTask', ({ id, msg }) => {
+  socket.on('resetTask', ({ id }) => {
     const user = usersDB.getUser(id)
     if (user) {
       io.to(user.room).emit('clearTask')
     }
   })
 
-  socket.on('setTypingStatus', ({ room, typingStatus, id }) => {
-    usersDB.setTypingStatus(id, typingStatus)
+  socket.on('setActiveStatus', ({ room, active, id }) => {
+    usersDB.setActiveStatus(id, active)
     io.to(room).emit('updateUsers', usersDB.getUsersByRoom(room))
   })
 

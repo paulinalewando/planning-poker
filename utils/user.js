@@ -20,9 +20,9 @@ class UsersDB {
     this.users = this.users.filter(user => user.id !== id)
   }
 
-  setTypingStatus(id, typingStatus) {
+  setActiveStatus(id, active) {
     const index = this.users.findIndex(user => user.id === id)
-    this.users[index].typingStatus = typingStatus
+    this.users[index].active = active
   }
 
   setRoomOwner(id) {

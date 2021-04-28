@@ -7,6 +7,10 @@
       <v-icon v-if="user.admin" x-small tooltip="Admin">fa-user-shield</v-icon>
       <v-icon v-else x-small>fa-user</v-icon>
       <span class="mx-2">Hi {{ user.name }}!</span>
+      <v-btn v-if="!user.admin" icon @click.prevent="setActivity">
+        <v-icon v-if="user.active" tooltip="Pause">fa-pause-circle</v-icon>
+        <v-icon v-else tooltip="Start">fa-play-circle</v-icon>
+      </v-btn>
       <v-btn icon @click.prevent="logOut">
         <v-icon tooltip="Logout">fa-sign-out-alt</v-icon>
       </v-btn>
@@ -34,11 +38,14 @@ export default {
     ...mapState(['user'])
   },
   methods: {
-    ...mapActions(['leftRoom']),
+    ...mapActions(['leftRoom', 'setActiveStatus']),
     logOut() {
       this.leftRoom()
       window.localStorage.clear()
       this.$router.push('/auth')?.catch(() => {})
+    },
+    setActivity() {
+      this.setActiveStatus(!this.user.active)
     }
   }
 }

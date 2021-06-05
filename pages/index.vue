@@ -2,7 +2,7 @@
   <v-row justify="center" align="center">
     <v-col v-if="admin" cols="12" sm="10" md="8" class="my-4">
       <AdminPanel v-if="user.admin" />
-      <NormalPanel v-else />
+      <UserPanel v-else />
     </v-col>
   </v-row>
 </template>

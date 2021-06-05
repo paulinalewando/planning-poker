@@ -1,7 +1,10 @@
 <template>
   <v-row>
     <v-col cols="12">
-      Vote on task: <strong>{{ task.text }}</strong>
+      <div>
+        Vote on task: <strong>{{ task.text || 'no task' }}</strong>
+      </div>
+      <div class="text-overline">{{ task.time }}</div>
     </v-col>
     <v-col cols="12">
       <v-item-group @change="select">
@@ -14,7 +17,10 @@
                 dark
                 height="150"
                 :disabled="!task.id"
-                @click="toggle"
+                @click="
+                  toggle()
+                  vote(selected)
+                "
               >
                 <div class="display-1 flex-grow-1 text-center">
                   {{ n }}
@@ -29,10 +35,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'NormalPanel',
+  name: 'UserPanel',
   data() {
     return {
       options: [0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 32, 100],
@@ -48,6 +54,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['vote', 'setActiveStatus']),
     select(i) {
       this.selected = this.options[i]
     }

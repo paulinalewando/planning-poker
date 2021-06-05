@@ -25,6 +25,11 @@ class UsersDB {
     this.users[index].active = active
   }
 
+  vote(id, vote) {
+    const index = this.users.findIndex(user => user.id === id)
+    this.users[index].vote = vote
+  }
+
   setRoomOwner(id) {
     if (this.users.some(user => user.admin)) return null
     const index = this.users.findIndex(user => user.id === id)

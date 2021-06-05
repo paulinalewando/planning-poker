@@ -1,12 +1,10 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="10" sm="6" md="4" class="text-center">
-      <Progress v-show="loading" />
-      <div v-show="!loading" class="text-center">
+      <div class="text-center">
         <app-logo />
       </div>
       <v-form
-        v-show="!loading"
         ref="form"
         v-model="isValid"
         lazy-validation
@@ -43,14 +41,12 @@
 <script>
 import { mapActions } from 'vuex'
 import AppLogo from '~/components/AppLogo.vue'
-import Progress from '~/components/Shared/Progress.vue'
 
 export default {
   name: 'Auth',
   layout: 'login',
   components: {
-    AppLogo,
-    Progress
+    AppLogo
   },
   data() {
     return {
@@ -60,19 +56,7 @@ export default {
         room: ''
       },
       nameRules: [v => !!v || 'Name is required'],
-      roomRules: [v => !!v || 'Enter the room'],
-      loading: true
-    }
-  },
-  async beforeMount() {
-    const user = JSON.parse(window.localStorage.getItem('vuex'))?.user || {}
-    if (Object.keys(user).length) {
-      await this.$store.dispatch('createUser', {
-        ...user
-      })
-      this.$router.push('/')?.catch(() => {})
-    } else {
-      this.loading = false
+      roomRules: [v => !!v || 'Enter the room']
     }
   },
   methods: {

@@ -40,6 +40,11 @@ io.on('connection', socket => {
     }
   })
 
+  socket.on('vote', ({ room, vote, id }) => {
+    usersDB.vote(id, vote)
+    io.to(room).emit('updateUsers', usersDB.getUsersByRoom(room))
+  })
+
   socket.on('setActiveStatus', ({ room, active, id }) => {
     usersDB.setActiveStatus(id, active)
     io.to(room).emit('updateUsers', usersDB.getUsersByRoom(room))

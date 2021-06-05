@@ -30,6 +30,9 @@ export const mutations = {
     state.task = {}
     state.users = []
   },
+  vote(state, vote) {
+    state.user.vote = vote
+  },
   setActiveStatus(state, active) {
     state.user.active = active
   }
@@ -77,6 +80,14 @@ export const actions = {
     })
 
     commit('clearData')
+  },
+  vote({ dispatch, commit, state }, active) {
+    commit('vote', active)
+    const { user } = state
+    dispatch('socketEmit', {
+      action: 'vote',
+      payload: user
+    })
   },
   setActiveStatus({ dispatch, commit, state }, active) {
     commit('setActiveStatus', active)

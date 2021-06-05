@@ -7,7 +7,11 @@
       <v-icon v-if="user.admin" x-small tooltip="Admin">fa-user-shield</v-icon>
       <v-icon v-else x-small>fa-user</v-icon>
       <span class="mx-2">Hi {{ user.name }}!</span>
-      <v-btn v-if="!user.admin" icon @click.prevent="setActivity">
+      <v-btn
+        v-if="!user.admin"
+        icon
+        @click.prevent="setActiveStatus(!user.active)"
+      >
         <v-icon v-if="user.active" tooltip="Pause">fa-pause-circle</v-icon>
         <v-icon v-else tooltip="Start">fa-play-circle</v-icon>
       </v-btn>
@@ -43,9 +47,6 @@ export default {
       this.leftRoom()
       window.localStorage.clear()
       this.$router.push('/auth')?.catch(() => {})
-    },
-    setActivity() {
-      this.setActiveStatus(!this.user.active)
     }
   }
 }

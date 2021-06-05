@@ -51,10 +51,11 @@ export default {
   watch: {
     'task.text'() {
       this.selected = null
+      this.vote(null)
     }
   },
   methods: {
-    ...mapActions(['vote', 'setActiveStatus']),
+    ...mapActions(['vote']),
     select(i) {
       this.selected = this.options[i]
     }

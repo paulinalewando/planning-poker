@@ -3,7 +3,7 @@
     <v-col cols="12">
       <v-form ref="form" @submit.prevent="post">
         <v-text-field
-          v-model="task"
+          v-model="taskText"
           solo
           label="Create task"
           :rules="rules"
@@ -11,7 +11,12 @@
         ></v-text-field>
         <v-row align="center" justify="space-between">
           <v-btn depressed @click="reset"> Reset </v-btn>
-          <v-btn outlined color="primary" @click="showVotes = !showVotes">
+          <v-btn
+            v-if="task.text"
+            outlined
+            color="primary"
+            @click="showVotes = !showVotes"
+          >
             <v-icon v-if="!showVotes" color="primary" left>
               fa-surprise
             </v-icon>
@@ -36,8 +41,11 @@
                 {{ v.name }}
               </div>
               <div v-else class="display-1 flex-grow-1 text-center">
-                {{ hover ? v.name : v.vote }}
+                {{ hover || !v.active ? v.name : v.vote }}
               </div>
+              <v-overlay :absolute="true" :value="!v.active" opacity="0">
+                <v-icon x-large style="opacity: 0.3">fa-pause</v-icon>
+              </v-overlay>
             </v-card>
           </v-hover>
         </v-col>
@@ -47,30 +55,33 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'AdminPanel',
   data() {
     return {
-      task: '',
+      taskText: '',
       rules: [v => !!v || 'Text is required'],
       showVotes: false
     }
   },
   computed: {
-    ...mapGetters(['vouters'])
+    ...mapGetters(['vouters']),
+    ...mapState(['task'])
   },
   methods: {
     ...mapActions(['createTask', 'resetTask']),
     post() {
       if (this.$refs.form.validate()) {
-        this.createTask(this.task)
+        this.showVotes = false
+        this.createTask(this.taskText)
       }
     },
     reset() {
       this.resetTask()
-      this.task = ''
+      this.taskText = ''
+      this.showVotes = false
       this.resetValidation()
     },
     resetValidation() {
@@ -80,4 +91,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>

@@ -81,8 +81,8 @@ export const actions = {
 
     commit('clearData')
   },
-  vote({ dispatch, commit, state }, active) {
-    commit('vote', active)
+  vote({ dispatch, commit, state }, vote) {
+    commit('vote', vote)
     const { user } = state
     dispatch('socketEmit', {
       action: 'vote',
